@@ -1,0 +1,53 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+.venv/
+.env/
+instance/
+*.db
+
+# Flask specific
+instance/
+config.py
+*.sqlite3
+*.log
+
+# Environment variables
+.env
+*.env
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# pytest
+.cache/
+*.cover
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+wheels/
+
+# pyenv
+.python-version
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+docker-compose.yml
+Dockerfile
+*.tar
