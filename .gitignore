@@ -11,7 +11,6 @@ instance/
 
 # Flask specific
 instance/
-config.py
 *.sqlite3
 *.log
 
