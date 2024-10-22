@@ -13,5 +13,6 @@ class Turmas(db.Model):
         self.ativo = ativo
 
 def adicionar_turma(turma_forms):
-    db.session.add(Turmas(descricao=turma_forms['descricao'], professor=['professor'], ativo=['ativo']))
-    db.commit()
+    nova_turma=Turmas(descricao=turma_forms['descricao'], professor=turma_forms['professor'], ativo=turma_forms['ativo'])
+    db.session.add(nova_turma)
+    db.session.commit()
