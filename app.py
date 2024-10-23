@@ -46,6 +46,7 @@ def alter_aluno():
 def del_alunos():
     aluno_forms = request.json
     resultado = deletar_alunos(aluno_forms)
-    return jsonify({'message':f'{resultado}'}), 200
+    return jsonify({'message':{
+        f'{resultado}'}}), 200
 
 app.run(host=app.config["HOST"], port = app.config['PORT'],debug=app.config['DEBUG'])

@@ -72,23 +72,33 @@ def alterar_dados(aluno_forms):
     return "Aluno atualizado com sucesso"
 
 def deletar_alunos(aluno_forms):
+    # aluno_db = db.session.query(Alunos).filter_by(id=11).first()
+    # db.session.delete(aluno_db)
+    # db.session.commit()
+    # return "Aluno Deletado"
     if not 'id' in aluno_forms:
         return "Necessario o ID do Aluno"
     aluno_id = aluno_forms['id']
+    if not isinstance(aluno_id, list):
+        aluno_id = [aluno_id]
+    print(aluno_id)
     alunos_inexistentes = []
     alunos_excluidos = []
-    try:
-        for aluno in aluno_id:
-            aluno_db = db.session.query(Alunos).filter_by(id=aluno).first()
-            if aluno_db is None:
-                alunos_inexistentes.append(aluno)
-                continue
-            db.session.delete(aluno_db)
-            alunos_excluidos.append(aluno)
-
-        return f'Aluno/s deletado/s com sucesso {alunos_excluidos}'
-    except:
-        pass
+    #try:
+    for aluno in aluno_id:
+        aluno_db = db.session.query(Alunos).filter_by(id=aluno).first()
+        if aluno_db is None:
+            print(aluno_db)
+            alunos_inexistentes.append(aluno_db)
+            return f'"Alunos não existem": {alunos_inexistentes}'
+        #     continue
+        # else:
+        #     db.session.delete(aluno_db)
+        #     db.session.commit()
+        #     alunos_excluidos.append(aluno)
+        #     return f'Aluno/s deletado/s com sucesso {alunos_excluidos}'
+    # except:
+    #     pass
 
       
 
