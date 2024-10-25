@@ -50,3 +50,4 @@ wheels/
 docker-compose.yml
 Dockerfile
 *.tar
+curl.txt
