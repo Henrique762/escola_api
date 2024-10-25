@@ -39,11 +39,16 @@ def listar_alunos():
     alunos_dict = [aluno.to_dict() for aluno in alunos]
     return alunos_dict
 
-def alterar_dados(aluno_forms):
-    if not 'id' in aluno_forms:
-        return "Necessario o ID do Aluno"
-    aluno_id = aluno_forms['id']
+def listar_aluno(aluno_id):
     aluno = db.session.query(Alunos).filter_by(id=aluno_id).first()
+    if aluno is None:
+        return {'Message': 'Aluno nao encontrado'}
+    else:
+        aluno_dict = aluno.to_dict()
+        return aluno_dict
+
+def alterar_dados(aluno_forms, id):
+    aluno = db.session.query(Alunos).filter_by(id=id).first()
     if aluno is None:
         return "Aluno não existe"
     if 'nome' in aluno_forms and aluno_forms['nome']:
@@ -71,34 +76,16 @@ def alterar_dados(aluno_forms):
 
     return "Aluno atualizado com sucesso"
 
-def deletar_alunos(aluno_forms):
-    # aluno_db = db.session.query(Alunos).filter_by(id=11).first()
-    # db.session.delete(aluno_db)
-    # db.session.commit()
-    # return "Aluno Deletado"
-    if not 'id' in aluno_forms:
-        return "Necessario o ID do Aluno"
-    aluno_id = aluno_forms['id']
-    if not isinstance(aluno_id, list):
-        aluno_id = [aluno_id]
-    print(aluno_id)
-    alunos_inexistentes = []
-    alunos_excluidos = []
-    #try:
-    for aluno in aluno_id:
-        aluno_db = db.session.query(Alunos).filter_by(id=aluno).first()
+def deletar_alunos(id):
+    try:
+        aluno_db = db.session.query(Alunos).filter_by(id=id).first()
         if aluno_db is None:
-            print(aluno_db)
-            alunos_inexistentes.append(aluno_db)
-            return f'"Alunos não existem": {alunos_inexistentes}'
-        #     continue
-        # else:
-        #     db.session.delete(aluno_db)
-        #     db.session.commit()
-        #     alunos_excluidos.append(aluno)
-        #     return f'Aluno/s deletado/s com sucesso {alunos_excluidos}'
-    # except:
-    #     pass
-
+            return {'Message': 'Aluno nao encontrado'}
+        else:
+            db.session.delete(aluno_db)
+            db.session.commit()
+            return {'Message': 'Aluno deletado com sucesso'}
+    except:
+        pass
       
 
