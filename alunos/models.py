@@ -17,7 +17,7 @@ class Alunos(db.Model):
         self.turma = turma
         self.data_nascimento = data_nascimento
 
-    def to_dict(self):
+    def transformar_dict(self):
         return {
             'id': self.id,
             'nome': self.nome,
@@ -27,7 +27,14 @@ class Alunos(db.Model):
             'nota_primeiro_semestre': self.nota_primeiro_semestre,
             'nota_segundo_semestre': self.nota_segundo_semestre,
             'media_final': self.media_final
-            }
+        }
+
+
+class AlunonaoEncontrado(Exception):
+    pass
+
+class NenhumalunoDisponivel(Exception):
+    pass
 
 def adicionar_aluno(aluno_forms):
     novo_aluno=Alunos(nome=aluno_forms['nome'], idade=aluno_forms['idade'], turma=aluno_forms['turma'], data_nascimento=aluno_forms['data_nascimento'])
@@ -36,21 +43,24 @@ def adicionar_aluno(aluno_forms):
 
 def listar_alunos():
     alunos = db.session.query(Alunos).all()
-    alunos_dict = [aluno.to_dict() for aluno in alunos]
+    print(alunos)
+    if alunos == []:
+        raise NenhumalunoDisponivel
+    alunos_dict = [aluno.transformar_dict() for aluno in alunos]
     return alunos_dict
 
 def listar_aluno(aluno_id):
-    aluno = db.session.query(Alunos).filter_by(id=aluno_id).first()
-    if aluno is None:
-        return {'Message': 'Aluno nao encontrado'}
-    else:
-        aluno_dict = aluno.to_dict()
-        return aluno_dict
+        aluno = db.session.query(Alunos).filter_by(id=aluno_id).first()
+        if aluno is None:
+            raise AlunonaoEncontrado
+        else:
+            aluno_dict = aluno.transformar_dict()
+            return aluno_dict
 
 def alterar_dados(aluno_forms, id):
     aluno = db.session.query(Alunos).filter_by(id=id).first()
     if aluno is None:
-        return "Aluno não existe"
+        raise AlunonaoEncontrado
     if 'nome' in aluno_forms and aluno_forms['nome']:
         aluno.nome = aluno_forms['nome']
 
@@ -74,18 +84,15 @@ def alterar_dados(aluno_forms, id):
 
     db.session.commit()
 
-    return "Aluno atualizado com sucesso"
+    return {'Message': 'Aluno atualizado com sucesso'}
 
 def deletar_alunos(id):
-    try:
-        aluno_db = db.session.query(Alunos).filter_by(id=id).first()
-        if aluno_db is None:
-            return {'Message': 'Aluno nao encontrado'}
-        else:
-            db.session.delete(aluno_db)
-            db.session.commit()
-            return {'Message': 'Aluno deletado com sucesso'}
-    except:
-        pass
+    aluno_db = db.session.query(Alunos).filter_by(id=id).first()
+    if aluno_db is None:
+        return AlunonaoEncontrado
+    else:
+        db.session.delete(aluno_db)
+        db.session.commit()
+        return {'Message': 'Aluno deletado com sucesso'}
       
 
