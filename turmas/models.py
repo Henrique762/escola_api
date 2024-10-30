@@ -30,11 +30,11 @@ def listar_turmas():
     turmas_dict = [turma.to_dict() for turma in turmas]
     return turmas_dict
 
-def alterar_dados(turma_forms):
+def alterar_dados_turma(turma_forms):
     if not 'id' in turma_forms:
         return "Necessario o ID da Turma"
     turma_id = turma_forms['id']
-    turma = db.session.query(Turmas).filter_by(id=aluno_id).first()
+    turma = db.session.query(Turmas).filter_by(id=turma_id).first()
     if turma is None:
         return "Turma não existe"
     if 'descricao' in turma_forms and turma_forms['descricao']:
