@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from turmas.models import adicionar_turmas, listar_turmas, alterar_dados_turma, deletar_turmas, adicionar_turma
 from datetime import datetime
 
@@ -34,3 +34,8 @@ def del_turmas(id):
     print(id)
     resultado = deletar_turmas(id)
     return jsonify(resultado), 200
+
+@listar_turmas.route('/')
+@listar_turmas.route('/index')
+def index():
+    return render_template('list_turmas.html') 
