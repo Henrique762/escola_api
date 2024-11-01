@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar professores</title>
+</head>
+
+<body>
+  <section>
+    <h1>Atualizar Turmas</h1>
+    <ul>
+      <li>Descrição: {{ turma.descricao }}</li>
+      <li>Professor: {{ turma.professor }}</li>
+      <li>Ativo: {{ turma.ativo }}</li>
+    </ul>
+    <form action="{{ url_for('turmas.update_turma', id_turma=turma.id) }}" method="post">
+      <div>
+        <label for="descricao">Descrição: </label><br>
+        <input type="text" id="descricao" name="descricao" required><br>
+      </div>
+      <div>
+        <label for="professor">Professor: </label><br>
+        <select name="professor" id="professor">
+            {% for professor in professores %}
+            <option value="{{professor.id}}">
+                {{professor.nome}}
+            </option>
+            {% endfor %}
+          </select>
+      </div>
+      <div>
+        <label for="ativo">Ativo: </label>
+        <select name="ativo" id="ativo">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+    </div>
+      <input type="submit" value="Atualizar Turma">
+    </form>
+  </section>
+</body>
+
+</html>
