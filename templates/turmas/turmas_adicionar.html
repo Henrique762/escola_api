@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informações sobre as Turmas</title>
     <style>
+
+        
         /* Adiciona um estilo básico para a página */
         body {
             font-family: Arial, sans-serif;
@@ -19,6 +21,7 @@
             padding: 20px;
             text-align: center;
         }
+
         section {
             padding: 20px;
             margin: 20px;
@@ -26,6 +29,7 @@
             border-radius: 5px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             background-color: #fff;
+            
         }
         .turma {
             margin-top: 10px;
@@ -35,6 +39,7 @@
         h2, h3 {
             color: #8735be;
         }
+        
     </style>
 </head>
 <body>
@@ -44,31 +49,23 @@
     </header>
 
     <!-- Descrição Geral -->
-    <section>
+    <section turmas>
         <h2>Sobre as Turmas</h2>
-        <p>Nossas turmas são organizadas de acordo com o ano e área de estudo. Cada turma tem um professor responsável e é formada por alunos dedicados.</p>
-    </section>
+        <p>Nossas turmas são organizadas de acordo com a Área de Estudo, Descrição e Professor. Cada turma tem um professor responsável e é formada por alunos dedicados.</p>
+    </section turmas>
 
-    <!-- Listagem de Turmas -->
     <section>
-        <h2>Turmas</h2>
-
-        <!-- Exemplo de Turma 1 -->
-        <div class="turma">
-            <h3>Turma A - 1º Ano</h3>
-            <p><strong>Professor:</strong> Ana Silva</p>
-            <p><strong>Alunos:</strong> 25</p>
-            <p><strong>Descrição:</strong> Esta é a turma do 1º ano focada em introdução às matérias básicas.</p>
-        </div>
-
-        <!-- Exemplo de Turma 2 -->
-        <div class="turma">
-            <h3>Turma B - 2º Ano</h3>
-            <p><strong>Professor:</strong> João Souza</p>
-            <p><strong>Alunos:</strong> 30</p>
-            <p><strong>Descrição:</strong> Turma do 2º ano com foco em aprofundamento em ciências e matemática.</p>
-        </div>
-
+        <h2>Adicionar Turmas</h2>
+        <form action="{{ url_for('adicionar_turma') }}" method="post">
+            <label for="nome">Turma:</label><br>
+            <input type="text" id="nome" name="nome"><br><br>
+            <label for="nome">Descrição:</label><br>
+            <input type="text" id="nome" name="nome"><br><br>
+            <label for="nome">Professor:</label><br>
+            <input type="text" id="nome" name="nome"><br><br>
+            <button type="submit">Enviar</button>
+        </form>
     </section>
+
 </body>
 </html>
