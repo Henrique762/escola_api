@@ -8,10 +8,24 @@
 </head>
 
 <body>
-  <form action="{{ url_for('professores.create_professores') }}" method="post">
-    <label for="nome">Nome:</label><br>
-    <input type="text" id="nome" name="nome"><br>
-    <input type="submit" value="Adicionar Aluno">
+  <form action="{{ url_for('professores.create_professores') }}" method="POST">
+    <div>
+      <label for="nome">Nome:</label><br>
+      <input type="text" id="nome" name="nome" required><br>
+    </div>
+    <div>
+      <label for="idade">Idade: </label><br>
+      <input type="number" id="idade" name="idade" required><br>
+    </div>
+    <div>
+      <label for="materia">Matéria: </label><br>
+      <input type="text" id="materia" name="materia" required><br>
+    </div>
+    <div>
+      <label for="observacoes">Observaçoes: </label><br>
+      <textarea type="observacoes" id="observacoes" name="observacoes" required></textarea>
+    </div>
+    <input type="submit" value="Adicionar professor">
   </form>
 </body>
 

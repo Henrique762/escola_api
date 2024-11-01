@@ -25,13 +25,15 @@ class Professores(db.Model):
 def listar_professor(id_professor):
     professor = db.session.query(Professores).filter_by(id=id_professor).first()
     if professor is None:
-        return {'Message': 'Aluno nao encontrado'}
+        return False
     else:
         professor_dict = professor.to_dict()
         return professor_dict
     
 def listar_professores():
     professores = Professores.query.all()
+    if not professores:
+        return []  
     professores_dict = [professor.to_dict() for professor in professores]
     return professores_dict
 
