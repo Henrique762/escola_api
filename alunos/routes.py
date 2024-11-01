@@ -1,37 +1,58 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template, url_for, redirect
 from datetime import datetime
-from alunos.models import adicionar_aluno, listar_alunos, alterar_dados, deletar_alunos, listar_aluno
-
+from alunos.models import NenhumalunoDisponivel, AlunonaoEncontrado, adicionar_aluno, listar_alunos, alterar_dados, deletar_alunos, listar_aluno
+from turmas.models import listar_turmas
 
 alunos_blueprint = Blueprint('alunos', __name__)
+
+@alunos_blueprint.route('/alunos/adicionar', methods=['GET'])
+def adicionar_alunos_page():
+    turmas = listar_turmas()
+    return render_template('alunos/alunos_adicionar.html', turmas=turmas)
 
 
 @alunos_blueprint.route(("/alunos/"), methods=['GET'])
 def list_alunos():
-    alunos = listar_alunos()
-    return jsonify(alunos)
+    try:
+        alunos = listar_alunos()
+        return render_template('alunos/alunos.html', alunos=alunos)
+    except NenhumalunoDisponivel:
+        return render_template('alunos/alunos.html'), 404
 
 @alunos_blueprint.route(("/alunos/<int:id>"), methods=['GET'])
 def list_aluno(id):
-    aluno = listar_aluno(id)
-    return jsonify(aluno)
-
+    try:
+        aluno = listar_aluno(id)
+        turmas = listar_turmas()
+        return render_template('alunos/alunos_editar.html', aluno=aluno, turmas=turmas)
+    except AlunonaoEncontrado:
+        return render_template('alunos/alunos.html', alunos=aluno)
+    
 @alunos_blueprint.route(("/alunos/"), methods=['POST'])
 def add_aluno():
-    aluno_forms = request.json
-    data_nascimento = datetime.strptime(aluno_forms['data_nascimento'], "%Y-%m-%d").date()
-    aluno_forms['data_nascimento'] = data_nascimento
-    adicionar_aluno(aluno_forms, id)
-    return jsonify({'message': 'Aluno criado com sucesso'}), 200
+    try:
+        aluno_forms = request.form
+        print(aluno_forms)
+        adicionar_aluno(aluno_forms)
+        return redirect(url_for('alunos.list_alunos'))
+    except Exception as e:
+        return jsonify({'Message': 'Erro ao Adicionar o Aluno'})
 
-@alunos_blueprint.route(("/alunos/"), methods=['PUT'])
-def alter_aluno():
-    aluno_forms = request.json
-    resultado = alterar_dados(aluno_forms)
-    return jsonify({'message': f'{resultado}'}), 200
 
-@alunos_blueprint.route(("/alunos/<int:id>"), methods=['DELETE'])
+@alunos_blueprint.route(("/alunos/editar<int:id>"), methods=['PUT', 'POST'])
+def alter_aluno(id):
+    try:
+        aluno = listar_aluno(id)
+        aluno_forms = request.form
+        alterar_dados(aluno_forms, id)
+        return redirect(url_for('alunos.list_alunos'))
+    except AlunonaoEncontrado:
+        return render_template('alunos/alunos.html', alunos=aluno)
+
+@alunos_blueprint.route(("/alunos/<int:id>"), methods=['DELETE', 'POST'])
 def del_alunos(id):
-    print(id)
-    resultado = deletar_alunos(id)
-    return jsonify(resultado), 200
+    try:
+        resultado = deletar_alunos(id)
+        return redirect(url_for('alunos.list_alunos'))
+    except:
+        {'Message': 'Aluno nao encontrado'}
