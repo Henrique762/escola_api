@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, render_template, redirect, url_fo
 
 from .professores_models import listar_professor, listar_professores, adicionar_professor, atualizar_professor, excluir_professor
 from config import db
+from turmas.models import listar_turmas, excluir_turma
 
 professores_blueprint = Blueprint('professores', __name__)
 
@@ -24,6 +25,7 @@ def create_professores():
     idade = request.form['idade']
     materia = request.form['materia']
     observacoes = request.form['observacoes']
+
 
     novo_professor = {'nome': nome, 
                       'idade': idade, 
@@ -57,6 +59,10 @@ def update_professor(id_professor):
 @professores_blueprint.route('/professores/delete/<int:id_professor>', methods=['DELETE','POST'])
 def delete_professor(id_professor):
         try:
+            turmas = listar_turmas()
+            for turma in turmas:
+                if int(turma['professor']) == int(id_professor):
+                    excluir_turma(turma['id'])
             excluir_professor(id_professor)
             return redirect(url_for('professores.get_professores'))
         except:

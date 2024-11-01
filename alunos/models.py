@@ -6,7 +6,7 @@ class Alunos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     nome = db.Column(db.String, nullable=False)
     idade = db.Column(db.Integer, nullable=False)
-    turma_id = db.Column(db.Integer, db.ForeignKey('turmas.id'), nullable=False)
+    turma = db.Column(db.Integer, db.ForeignKey('turmas.id'), nullable=False)
     data_nascimento = db.Column(db.Date, nullable=False)
     nota_primeiro_semestre = db.Column(db.Float, default=0.0)
     nota_segundo_semestre = db.Column(db.Float, default=0.0)
@@ -52,7 +52,6 @@ def adicionar_aluno(aluno_forms):
 
 def listar_alunos():
     alunos = db.session.query(Alunos).all()
-    print(alunos)
     if alunos == []:
         raise NenhumalunoDisponivel
     alunos_dict = [aluno.transformar_dict() for aluno in alunos]

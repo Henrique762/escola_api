@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, render_template, url_for, redirect
 from datetime import datetime
 from alunos.models import NenhumalunoDisponivel, AlunonaoEncontrado, adicionar_aluno, listar_alunos, alterar_dados, deletar_alunos, listar_aluno
-from turmas.models import listar_turmas
+from turmas.models import listar_turmas, listar_turma
 
 alunos_blueprint = Blueprint('alunos', __name__)
 
@@ -15,6 +15,9 @@ def adicionar_alunos_page():
 def list_alunos():
     try:
         alunos = listar_alunos()
+        for aluno in alunos:
+            descricaoTurma = listar_turma(aluno['turma'])['descricao']
+            aluno['descricaoTurma'] = descricaoTurma
         return render_template('alunos/alunos.html', alunos=alunos)
     except NenhumalunoDisponivel:
         return render_template('alunos/alunos.html'), 404
@@ -23,6 +26,8 @@ def list_alunos():
 def list_aluno(id):
     try:
         aluno = listar_aluno(id)
+        descricaoTurma = listar_turma(aluno['turma'])['descricao']
+        aluno['descricaoTurma'] = descricaoTurma
         turmas = listar_turmas()
         return render_template('alunos/alunos_editar.html', aluno=aluno, turmas=turmas)
     except AlunonaoEncontrado:
@@ -32,7 +37,6 @@ def list_aluno(id):
 def add_aluno():
     try:
         aluno_forms = request.form
-        print(aluno_forms)
         adicionar_aluno(aluno_forms)
         return redirect(url_for('alunos.list_alunos'))
     except Exception as e:

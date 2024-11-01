@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Alunos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/professores.css') }}">
 </head>
 
 <body>
@@ -13,37 +14,43 @@
     <nav class="nav">
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="#">Alunos</a></li>
-        <li><a href="#">Turmas</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="{{ url_for('alunos.list_alunos')}}">Alunos</a></li>
+        <li><a href="{{ url_for('turmas.get_turmas')}}">Turmas</a></li>
       </ul>
     </nav>
   </header>
   <section class="container professores-adicionar">
     <h1>Adicionar Alunos</h1>
     <form action="{{ url_for('alunos.add_aluno') }}" method="POST">
-        <div>
-            <label for="nome">Nome:</label><br>
-            <input type="text" id="nome" name="nome" required><br>
-          </div>
-          <div>
-            <label for="idade">Idade: </label><br>
-            <input type="number" id="idade" name="idade" required><br>
-          </div>
-          <div>
-            <label for="turma">Turma: </label><br>
-            <select name="turma" id="turma">
-                {% for turma in turmas %}
-                <option value="{{turma.id}}">
-                    {{turma.descricao}}
-                </option>
-                {% endfor %}
-              </select>
-          </div>
-          <div>
-            <label for="data_nascimento">Data Nascimento: </label><br>
-            <input type="date" id="data_nascimento" name="data_nascimento" required><br>
-          </div>
+      <div>
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br>
+      </div>
+      <div>
+        <label for="idade">Idade: </label><br>
+        <input type="number" id="idade" name="idade" required><br>
+      </div>
+      <div>
+        <label for="turma">Turma: </label><br>
+        <select name="turma" id="turma">
+          {% for turma in turmas %}
+          <option value="{{turma.id}}">
+            {{turma.descricao}}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="data_nascimento">Data Nascimento: </label><br>
+        <input type="date" id="data_nascimento" name="data_nascimento" required><br>
+      </div>
+      {% if turmas %}
       <input type="submit" value="Adicionar Aluno" class="professores-adicionar-enviar">
+      {% else %}
+      <p style="color: red;">É necessario existir uma turma</p>
+      {% endif%}
+
     </form>
   </section>
 </body>

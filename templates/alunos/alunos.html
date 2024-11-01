@@ -5,37 +5,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alunos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/professores.css') }}">
 </head>
 
 <body>
-  <section>
-    <a class="professores-adicionar-professores" href="{{ url_for('alunos.adicionar_alunos_page')}}">Adiconar Alunos</a>
-    <h1>Lista de Alunos</div>
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
       <ul>
-        {% if alunos %}
-        {% for aluno in alunos %}
-        <li>
-          <div>
-            <p>Nome: {{ aluno.nome }}</p>
-            <p>Idade: {{ aluno.idade }}</p>
-            <p>Turma: {{ aluno.turma }}</p>
-            <p>Data Nascimento: {{ aluno.data_nascimento }}</p>
-            <p>Nota Primeiro Semestre: {{ aluno.nota_primeiro_semestre }}</p>
-            <p>Nota segundo Semestre: {{ aluno.nota_segundo_semestre }}</p>
-            <p>Nota Final Semestre: {{ aluno.media_final }}</p>
-            <form action="{{ url_for('alunos.del_alunos', id=aluno.id) }}" method="POST">
-              <input type="submit" value="Excluir Aluno" />
-            </form>
-            <form action="{{ url_for('alunos.list_aluno', id=aluno.id) }}" method="GET">
-                <input type="submit" value="Editar Aluno" />
-              </form>
-          </div>
-        </li>
-        {% endfor %}
-        {% else %}
-        <p>Nenhum Aluno Cadastrado.</p>
-        {% endif %}
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="{{ url_for('alunos.list_alunos')}}">Alunos</a></li>
+        <li><a href="{{ url_for('turmas.get_turmas')}}">Turmas</a></li>
       </ul>
+    </nav>
+  </header>
+  <section class="container">
+    <a class="professores-adicionar-professores" href="{{ url_for('alunos.adicionar_alunos_page')}}">Adicionar Alunos</a>
+    <h1>Lista de Alunos</h1>
+    <div class="professor">
+      {% if alunos %}
+      {% for aluno in alunos %}
+      <div>
+        <p>Nome: {{ aluno.nome }}</p>
+        <p>Idade: {{ aluno.idade }}</p>
+        <p>Turma: {{ aluno.descricaoTurma }}</p>
+        <p>Data Nascimento: {{ aluno.data_nascimento }}</p>
+        <p>Nota Primeiro Semestre: {{ aluno.nota_primeiro_semestre }}</p>
+        <p>Nota segundo Semestre: {{ aluno.nota_segundo_semestre }}</p>
+        <p>Nota Final Semestre: {{ aluno.media_final }}</p>
+        <div class="professor-forms">
+          <form action="{{ url_for('alunos.del_alunos', id=aluno.id) }}" method="POST">
+            <input type="submit" value="Excluir Aluno" />
+          </form>
+          <form action="{{ url_for('alunos.list_aluno', id=aluno.id) }}" method="GET">
+            <input type="submit" value="Editar Aluno" />
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+    </div>
+    <p>Nenhum Aluno Cadastrado.</p>
+    {% endif %}
   </section>
 </body>
 

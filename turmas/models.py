@@ -44,7 +44,7 @@ def atualizar_turma(id_turma, dados):
         return 'Turma não encontrada'
     else:
         turma.descricao = dados['descricao']
-        turma.professor = dados['professor']
+        turma.professor = int(dados['professor'])
         turma.ativo = dados['ativo']
     db.session.commit()
     return 'Turma atualizada com sucesso'

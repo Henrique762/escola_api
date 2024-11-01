@@ -17,13 +17,13 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
-        <li><a href="#">Alunos</a></li>
-        <li><a href="#">Turmas</a></li>
+        <li><a href="{{ url_for('alunos.list_alunos')}}">Alunos</a></li>
+        <li><a href="{{ url_for('turmas.get_turmas')}}">Turmas</a></li>
       </ul>
     </nav>
   </header>
   <section class="container">
-    <a class="professores-adicionar-professores" href="{{ url_for('professores.adicionar_professores_page')}}">Adiconar professores</a>
+    <a class="professores-adicionar-professores" href="{{ url_for('professores.adicionar_professores_page')}}">Adicionar professores</a>
     <h1>Lista de professores</h1>
     <div class="professor">
       {% if professores %}
@@ -47,7 +47,6 @@
     </div>
     <p>Nenhum professor cadastrado.</p>
     {% endif %}
-    </ul>
   </section>
 </body>
 

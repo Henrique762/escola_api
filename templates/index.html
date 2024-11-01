@@ -16,13 +16,13 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
-        <li><a href="#">Alunos</a></li>
-        <li><a href="#">Turmas</a></li>
+        <li><a href="{{ url_for('alunos.list_alunos')}}">Alunos</a></li>
+        <li><a href="{{ url_for('turmas.get_turmas')}}">Turmas</a></li>
       </ul>
     </nav>
   </header>
   <section class="titulo">
-    <h1>Seja bem a Escola Flask</h1>
+    <h1>Seja bem vindo a Escola Flask</h1>
   </section>
 </body>
 

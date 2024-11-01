@@ -5,33 +5,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Turmas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/professores.css') }}">
+
 </head>
 
 <body>
-  <form action="{{ url_for('turmas.create_turmas') }}" method="POST">
-    <div>
-      <label for="descricao">Descrição: </label><br>
-      <input type="text" id="descricao" name="descricao" required><br>
-    </div>
-    <div>
-      <label for="professor">Professor: </label><br>
-      <select name="professor" id="professor">
-        {% for professor in professores %}
-        <option value="{{professor.id}}">
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="{{ url_for('alunos.list_alunos')}}">Alunos</a></li>
+        <li><a href="{{ url_for('turmas.get_turmas')}}">Turmas</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="container professores-adicionar">
+    <h1>Adicionar Turmas</h1>
+
+    <form action="{{ url_for('turmas.create_turmas') }}" method="POST">
+      <div>
+        <label for="descricao">Descrição: </label><br>
+        <input type="text" id="descricao" name="descricao" required><br>
+      </div>
+      <div>
+        <label for="professor">Professor: </label><br>
+        <select name="professor" id="professor">
+          {% for professor in professores %}
+          <option value="{{professor.id}}">
             {{professor.nome}}
-        </option>
-        {% endfor %}
-      </select>
-    </div>
-    <div>
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
         <label for="ativo">Ativo: </label>
         <select name="ativo" id="ativo">
-            <option value="True">True</option>
-            <option value="False">False</option>
+          <option value="True">True</option>
+          <option value="False">False</option>
         </select>
-    </div>
-    <input type="submit" value="Adicionar Turma">
-  </form>
+      </div>
+      {% if professores %}
+      <input type="submit" value="Adicionar Turma" class="professores-adicionar-enviar">
+      {% else %}
+      <p style="color: red;">É necessario existir um professor</p>
+      {% endif %}
+    </form>
+  </section>
 </body>
 
 </html>

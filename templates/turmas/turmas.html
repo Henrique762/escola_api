@@ -5,35 +5,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Turmas</title>
-  
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/professores.css') }}">
 </head>
 
 <body>
-    <section>
-        <h1>Lista de Turmas</div>
-          <ul>
-            {% if turmas %}
-            {% for turma in turmas %}
-            <li>
-              <div>
-                
-                <p>Descrição: {{ turma.descricao }}</p>
-                <p>Professor: {{ turma.professor }}</p>
-                <p>Ativo: {{ turma.ativo }}</p>
-               
-                <form action="{{ url_for('turmas.delete_turma', id_turma=turma.id) }}" method="POST">
-                    <input type="submit" value="Excluir Turma" />
-                  </form>
-                <form action="{{ url_for('turmas.get_turma_id', id_turma=turma.id) }}" method="GET">
-                    <input type="submit" value="Editar Turma" />
-                  </form>  
-              </div>
-            </li>
-            {% endfor %}
-            {% else %}
-            <p>Nenhuma Turma cadastrada.</p>
-            {% endif %}
-          </ul>
-      </section>
- </body>
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="{{ url_for('alunos.list_alunos')}}">Alunos</a></li>
+        <li><a href="{{ url_for('turmas.get_turmas')}}">Turmas</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="container">
+    <a class="professores-adicionar-professores" href="{{ url_for('turmas.adicionar_turmas_page')}}">Adicionar Turmas</a>
+    <h1>Listar Turmas</h1>
+    <div class="professor">
+      {% if turmas %}
+      {% for turma in turmas %}
+      <div>
+        <p>Descrição: {{ turma.descricao }}</p>
+        <p>Professor: {{ turma.nomeProfessor }}</p>
+        <p>Ativo: {{ turma.ativo }}</p>
+        <div class="professor-forms">
+          <form action="{{ url_for('turmas.delete_turma', id_turma=turma.id) }}" method="POST">
+            <input type="submit" value="Excluir Turma" />
+          </form>
+          <form action="{{ url_for('turmas.get_turma_id', id_turma=turma.id) }}" method="GET">
+            <input type="submit" value="Editar Turma" />
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+    </div>
+    <p>Nenhuma Turma cadastrada.</p>
+    {% endif %}
+  </section>
+</body>
+
 </html>
