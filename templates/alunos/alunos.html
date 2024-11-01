@@ -33,7 +33,7 @@
         <p>Data Nascimento: {{ aluno.data_nascimento }}</p>
         <p>Nota Primeiro Semestre: {{ aluno.nota_primeiro_semestre }}</p>
         <p>Nota segundo Semestre: {{ aluno.nota_segundo_semestre }}</p>
-        <p>Nota Final Semestre: {{ aluno.media_final }}</p>
+        <p>Nota Media Final: {{ aluno.media_final }}</p>
         <div class="professor-forms">
           <form action="{{ url_for('alunos.del_alunos', id=aluno.id) }}" method="POST">
             <input type="submit" value="Excluir Aluno" />

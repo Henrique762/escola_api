@@ -30,7 +30,7 @@
       <p>Data Nascimento: {{ aluno.data_nascimento }}</p>
       <p>Nota Primeiro Semestre: {{ aluno.nota_primeiro_semestre }}</p>
       <p>Nota segundo Semestre: {{ aluno.nota_segundo_semestre }}</p>
-      <p>Nota Final Semestre: {{ aluno.media_final }}</p>
+      <p>Nota Media Final: {{ aluno.media_final }}</p>
     </div>
     <form action="{{ url_for('alunos.alter_aluno', id=aluno.id) }}" method="POST" class="professor-editar">
       <div>
