@@ -1,4 +1,5 @@
 from config import db
+from datetime import datetime
 
 class Alunos(db.Model):
     __tablename__ = "alunos"
@@ -28,7 +29,8 @@ class Alunos(db.Model):
             'nota_segundo_semestre': self.nota_segundo_semestre,
             'media_final': self.media_final
         }
-
+    def calcular_media_final(self):
+        self.media_final = (self.nota_primeiro_semestre + self.nota_segundo_semestre) // 2
 
 class AlunonaoEncontrado(Exception):
     pass
@@ -36,10 +38,17 @@ class AlunonaoEncontrado(Exception):
 class NenhumalunoDisponivel(Exception):
     pass
 
+    
+
 def adicionar_aluno(aluno_forms):
-    novo_aluno=Alunos(nome=aluno_forms['nome'], idade=aluno_forms['idade'], turma=aluno_forms['turma'], data_nascimento=aluno_forms['data_nascimento'])
+    nome = aluno_forms['nome']
+    idade = int(aluno_forms['idade'])
+    turma = int(aluno_forms['turma'])
+    data_nascimento = datetime.strptime(aluno_forms['data_nascimento'], '%Y-%m-%d').date()
+    novo_aluno=Alunos(nome=nome, idade=idade, turma=turma, data_nascimento=data_nascimento)
     db.session.add(novo_aluno)
     db.session.commit()
+    return {'Message': 'Aluno Cadastrado com Sucesso'}
 
 def listar_alunos():
     alunos = db.session.query(Alunos).all()
@@ -71,16 +80,16 @@ def alterar_dados(aluno_forms, id):
         aluno.turma = aluno_forms['turma']
 
     if 'data_nascimento' in aluno_forms and aluno_forms['data_nascimento']:
-        aluno.data_nascimento = aluno_forms['data_nascimento']
+        aluno.data_nascimento = datetime.strptime(aluno_forms['data_nascimento'], '%Y-%m-%d').date()
 
     if 'nota_primeiro_semestre' in aluno_forms and aluno_forms['nota_primeiro_semestre']:
-        aluno.nota_primeiro_semestre = aluno_forms['nota_primeiro_semestre']
+        aluno.nota_primeiro_semestre = float(aluno_forms['nota_primeiro_semestre'])
 
     if 'nota_segundo_semestre' in aluno_forms and aluno_forms['nota_segundo_semestre']:
-        aluno.nota_segundo_semestre = aluno_forms['nota_segundo_semestre']
+        aluno.nota_segundo_semestre = float(aluno_forms['nota_segundo_semestre'])
 
-    if 'media_final' in aluno_forms and aluno_forms['media_final']:
-        aluno.media_final = aluno_forms['media_final']
+    if 'nota_primeiro_semestre' in aluno_forms or 'nota_segundo_semestre' in aluno_forms:
+        aluno.calcular_media_final()
 
     db.session.commit()
 

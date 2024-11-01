@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Aluno</title>
+</head>
+
+<body>
+  <section>
+    {% if aluno %}
+    <h1>Atualizar Aluno</h1>
+    <ul>
+        <li>Nome: {{ aluno.nome }}</li>
+        <li>Idade: {{ aluno.idade }}</li>
+        <li>Turma: {{ aluno.turma }}</li>
+        <li>Data Nascimento: {{ aluno.data_nascimento }}</li>
+        <li>Nota Primeiro Semestre: {{ aluno.nota_primeiro_semestre }}</li>
+        <li>Nota segundo Semestre: {{ aluno.nota_segundo_semestre }}</li>
+        <li>Nota Final Semestre: {{ aluno.media_final }}</li>
+    </ul>
+    <form action="{{ url_for('alunos.alter_aluno', id=aluno.id) }}" method="POST">
+      <div>
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br>
+      </div>
+      <div>
+        <label for="idade">Idade: </label><br>
+        <input type="number" id="idade" name="idade" required><br>
+      </div>
+      <div>
+        <label for="turma">Turma: </label><br>
+        <select name="turma" id="turma">
+            {% for turma in turmas %}
+            <option value="{{turma.id}}">
+                {{turma.descricao}}
+            </option>
+            {% endfor %}
+          </select>
+      </div>
+      <div>
+        <label for="data_nascimento">Data Nascimento: </label><br>
+        <input type="date" id="data_nascimento" name="data_nascimento" required><br>
+      </div>
+      <div>
+        <label for="nota_primeiro_semestre">Nota Primeiro Semestre: </label><br>
+        <input type="number" step="0.01" id="nota_primeiro_semestre" name="nota_primeiro_semestre" required><br>
+      </div>
+      
+      <div>
+        <label for="nota_segundo_semestre">Nota Segundo Semestre: </label><br>
+        <input type="number" step="0.01" id="nota_segundo_semestre" name="nota_segundo_semestre" required><br>
+      </div>
+      <input type="submit" value="Atualizar Aluno">
+    </form>
+    {% else %}
+    <p>Aluno nao Encontrado</p>
+    {% endif %}
+  </section>
+</body>
+
+</html>

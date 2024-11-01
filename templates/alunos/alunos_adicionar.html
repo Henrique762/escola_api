@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Alunos</title>
+</head>
+
+<body>
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Alunos</a></li>
+        <li><a href="#">Turmas</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="container professores-adicionar">
+    <h1>Adicionar Alunos</h1>
+    <form action="{{ url_for('alunos.add_aluno') }}" method="POST">
+        <div>
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+          </div>
+          <div>
+            <label for="idade">Idade: </label><br>
+            <input type="number" id="idade" name="idade" required><br>
+          </div>
+          <div>
+            <label for="turma">Turma: </label><br>
+            <select name="turma" id="turma">
+                {% for turma in turmas %}
+                <option value="{{turma.id}}">
+                    {{turma.descricao}}
+                </option>
+                {% endfor %}
+              </select>
+          </div>
+          <div>
+            <label for="data_nascimento">Data Nascimento: </label><br>
+            <input type="date" id="data_nascimento" name="data_nascimento" required><br>
+          </div>
+      <input type="submit" value="Adicionar Aluno" class="professores-adicionar-enviar">
+    </form>
+  </section>
+</body>
+
+</html>
