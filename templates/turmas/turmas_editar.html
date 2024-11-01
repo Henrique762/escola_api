@@ -9,30 +9,35 @@
 
 <body>
   <section>
-    <h1>Atualizar professores</h1>
+    <h1>Atualizar Turmas</h1>
     <ul>
-      <li>Turma: {{ turma.descricao }}</li>
-      <li>Professor: {{ professor.idade }}</li>
-      <li>Ativo: {{ professor.materia }}</li>
+      <li>Descrição: {{ turma.descricao }}</li>
+      <li>Professor: {{ turma.professor }}</li>
+      <li>Ativo: {{ turma.ativo }}</li>
     </ul>
-    <form action="{{ url_for('professores.update_professor', id_professor=professor.id) }}" method="post">
+    <form action="{{ url_for('turmas.update_turma', id_turma=turma.id) }}" method="post">
       <div>
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br>
+        <label for="descricao">Descrição: </label><br>
+        <input type="text" id="descricao" name="descricao" required><br>
       </div>
       <div>
-        <label for="idade">Idade: </label><br>
-        <input type="number" id="idade" name="idade" required><br>
+        <label for="professor">Professor: </label><br>
+        <select name="professor" id="professor">
+            {% for professor in professores %}
+            <option value="{{professor.id}}">
+                {{professor.nome}}
+            </option>
+            {% endfor %}
+          </select>
       </div>
       <div>
-        <label for="materia">Matéria: </label><br>
-        <input type="text" id="materia" name="materia" required><br>
-      </div>
-      <div>
-        <label for="observacoes">Observações: </label><br>
-        <textarea type="observacoes" id="observacoes" name="observacoes" required></textarea>
-      </div>
-      <input type="submit" value="Atualizar professor">
+        <label for="ativo">Ativo: </label>
+        <select name="ativo" id="ativo">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+    </div>
+      <input type="submit" value="Atualizar Turma">
     </form>
   </section>
 </body>

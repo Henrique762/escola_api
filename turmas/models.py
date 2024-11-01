@@ -23,7 +23,7 @@ class Turmas(db.Model):
 def listar_turma(id_turma):
     turma = db.session.query(Turmas).filter_by(id=id_turma).first()
     if turma is None:
-        return {'Message': 'Turma não encontrada'}
+        return False
     else:
         turma_dict = turma.to_dict()
         return turma_dict

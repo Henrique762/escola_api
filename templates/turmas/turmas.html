@@ -1,79 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações sobre as Turmas</title>
-    <style>
-
-        
-        /* Adiciona um estilo básico para a página */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        header {
-            background-color: #8735be;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        section {
-            padding: 20px;
-            margin: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-            
-        }
-        .turma {
-            margin-top: 10px;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        h2, h3 {
-            color: #8735be;
-        }
-        
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turmas</title>
+  
 </head>
+
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <h1>Bem-vindo(a) às Turmas da Escola XYZ</h1>
-    </header>
-
-    <!-- Descrição Geral -->
-    <section turmas>
-        <h2>Sobre as Turmas</h2>
-        <p>Nossas turmas são organizadas de acordo com a Área de Estudo, Descrição e Professor. Cada turma tem um professor responsável e é formada por alunos dedicados.</p>
-    </section turmas>
-
-    <!-- Listagem de Turmas -->
     <section>
-        <h2>Turmas</h2>
-
-        <!-- Exemplo de Turma 1 -->
-        <div class="turma">
-            <h3>Turma A - 1º Ano</h3>
-            <p><strong>Professor:</strong> Ana Silva</p>
-            <p><strong>Alunos:</strong> 25</p>
-            <p><strong>Descrição:</strong> Esta é a turma do 1º ano focada em introdução às matérias básicas.</p>
-        </div>
-
-        <!-- Exemplo de Turma 2 -->
-        <div class="turma">
-            <h3>Turma B - 2º Ano</h3>
-            <p><strong>Professor:</strong> João Souza</p>
-            <p><strong>Alunos:</strong> 30</p>
-            <p><strong>Descrição:</strong> Turma do 2º ano com foco em aprofundamento em ciências e matemática.</p>
-        </div>
-
-    </section>
-
-</body>
+        <h1>Lista de Turmas</div>
+          <ul>
+            {% if turmas %}
+            {% for turma in turmas %}
+            <li>
+              <div>
+                
+                <p>Descrição: {{ turma.descricao }}</p>
+                <p>Professor: {{ turma.professor }}</p>
+                <p>Ativo: {{ turma.ativo }}</p>
+               
+                <form action="{{ url_for('turmas.delete_turma', id_turma=turma.id) }}" method="POST">
+                    <input type="submit" value="Excluir Turma" />
+                  </form>
+                <form action="{{ url_for('turmas.get_turma_id', id_turma=turma.id) }}" method="GET">
+                    <input type="submit" value="Editar Turma" />
+                  </form>  
+              </div>
+            </li>
+            {% endfor %}
+            {% else %}
+            <p>Nenhuma Turma cadastrada.</p>
+            {% endif %}
+          </ul>
+      </section>
+ </body>
 </html>

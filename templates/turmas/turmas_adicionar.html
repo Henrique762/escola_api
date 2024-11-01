@@ -1,71 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações sobre as Turmas</title>
-    <style>
-
-        
-        /* Adiciona um estilo básico para a página */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        header {
-            background-color: #8735be;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        section {
-            padding: 20px;
-            margin: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-            
-        }
-        .turma {
-            margin-top: 10px;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        h2, h3 {
-            color: #8735be;
-        }
-        
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Turmas</title>
 </head>
+
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <h1>Bem-vindo(a) às Turmas da Escola XYZ</h1>
-    </header>
-
-    <!-- Descrição Geral -->
-    <section turmas>
-        <h2>Sobre as Turmas</h2>
-        <p>Nossas turmas são organizadas de acordo com a Área de Estudo, Descrição e Professor. Cada turma tem um professor responsável e é formada por alunos dedicados.</p>
-    </section turmas>
-
-    <section>
-        <h2>Adicionar Turmas</h2>
-        <form action="{{ url_for('adicionar_turma') }}" method="post">
-            <label for="nome">Turma:</label><br>
-            <input type="text" id="nome" name="nome"><br><br>
-            <label for="nome">Descrição:</label><br>
-            <input type="text" id="nome" name="nome"><br><br>
-            <label for="nome">Professor:</label><br>
-            <input type="text" id="nome" name="nome"><br><br>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
+  <form action="{{ url_for('turmas.create_turmas') }}" method="POST">
+    <div>
+      <label for="descricao">Descrição: </label><br>
+      <input type="text" id="descricao" name="descricao" required><br>
+    </div>
+    <div>
+      <label for="professor">Professor: </label><br>
+      <select name="professor" id="professor">
+        {% for professor in professores %}
+        <option value="{{professor.id}}">
+            {{professor.nome}}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+        <label for="ativo">Ativo: </label>
+        <select name="ativo" id="ativo">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+    </div>
+    <input type="submit" value="Adicionar Turma">
+  </form>
 </body>
+
 </html>
