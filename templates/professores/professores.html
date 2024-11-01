@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professores</title>
+</head>
+
+<body>
+  <section>
+    <h1>Lista de professores</div>
+      <ul>
+        {% if professores %}
+        {% for professor in professores %}
+        <li>
+          <div>
+            <a href="{{ url_for('professores.get_professores', id_professor=professor.id) }}">(ID: {{ professor.id }})</a>
+            <p>Nome: {{ professor.nome }}</p>
+            <p>Idade: {{ professor.idade }}</p>
+            <p>Matéria: {{ professor.materia }}</p>
+            <p>Observações: {{ professor.observacoes }}</p>
+            <form action="{{ url_for('professores.delete_professor', id_professor=professor.id) }}" method="POST">
+              <input type="submit" value="Excluir professor" />
+            </form>
+          </div>
+        </li>
+        {% endfor %}
+        {% else %}
+        <p>Nenhum professor cadastrado.</p>
+        {% endif %}
+      </ul>
+  </section>
+</body>
+
+</html>
