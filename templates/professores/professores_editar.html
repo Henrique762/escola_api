@@ -5,18 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editar professores</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/professores.css') }}">
+
 </head>
 
 <body>
-  <section>
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="#">Alunos</a></li>
+        <li><a href="#">Turmas</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="container">
     <h1>Atualizar professores</h1>
-    <ul>
-      <li>Nome: {{ professor.nome }}</li>
-      <li>Idade: {{ professor.idade }}</li>
-      <li>Matéria: {{ professor.materia }}</li>
-      <li>Observações: {{ professor.observacoes }}</li>
-    </ul>
-    <form action="{{ url_for('professores.update_professor', id_professor=professor.id) }}" method="post">
+    <div class="professor-editar">
+      <p>Nome: {{ professor.nome }}</p>
+      <p>Idade: {{ professor.idade }}</p>
+      <p>Matéria: {{ professor.materia }}</p>
+      <p>Observações: {{ professor.observacoes }}</p>
+    </div>
+    <form action="{{ url_for('professores.update_professor', id_professor=professor.id) }}" method="post" class="professor-editar">
       <div>
         <label for="nome">Nome:</label><br>
         <input type="text" id="nome" name="nome" required><br>
@@ -33,7 +46,7 @@
         <label for="observacoes">Observações: </label><br>
         <textarea type="observacoes" id="observacoes" name="observacoes" required></textarea>
       </div>
-      <input type="submit" value="Atualizar professor">
+      <input type="submit" value="Atualizar professor" class="professor-editar-enviar">
     </form>
   </section>
 </body>

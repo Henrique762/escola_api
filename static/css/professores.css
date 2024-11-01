@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  width: 100%;
+  background: blueviolet;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.nav ul {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav a {
+  display: block;
+  color: #fff;
+}
+
+.container {
+  display: grid;
+  padding: 2rem;
+  max-width: 880px;
+  margin: 0 auto;
+  border: 2px solid blueviolet;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.container h1 {
+  font-size: 2rem;
+  justify-self: center;
+  padding-bottom: 4px;
+  color: blueviolet;
+  border-bottom: 2px solid blueviolet;
+}
+
+.professor {
+  display: grid;
+  gap: 1rem;
+}
+
+.professor > div,
+.professor-editar {
+  background: blueviolet;
+  padding: 1rem;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.professor p,
+.professor-editar p {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.professor-forms {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.professor-forms input {
+  display: block;
+  cursor: pointer;
+  background: #fff;
+  color: blueviolet;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  font-size: 1.1rem;
+  border: none;
+}
+
+.professores-adicionar {
+  border: none;
+}
+
+.professores-adicionar form,
+.professor-editar {
+  display: grid;
+  gap: 1rem;
+}
+
+.professores-adicionar label,
+.professor-editar label {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.professor-editar label {
+  color: #fff;
+}
+
+.professores-adicionar input,
+.professores-adicionar textarea,
+.professor-editar input,
+.professor-editar textarea {
+  padding: 1rem;
+  border-radius: 0.4rem;
+  border: none;
+  border: 1px solid #373d35;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  width: 50%;
+}
+
+.professor-editar input,
+.professor-editar textarea {
+  border: none;
+}
+
+.professores-adicionar input:hover,
+.professores-adicionar input:focus,
+.professores-adicionar textarea:focus,
+.professores-editar input:hover,
+.professores-editar input:focus,
+.professores-editar textarea:focus {
+  outline: none;
+  border-color: blueviolet;
+}
+
+.professores-adicionar-enviar,
+.professor-editar-enviar,
+.professores-adicionar-professores {
+  align-self: start;
+  max-width: max-content;
+  border: none;
+  background: blueviolet;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.professor-editar-enviar {
+  background: #fff;
+  color: blueviolet;
+}
+
+.professores-adicionar-professores {
+  background: blueviolet;
+  color: #fff;
+  font-size: 1.1rem;
+  justify-self: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+}

@@ -5,31 +5,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Professores</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/professores.css') }}">
+
 </head>
 
 <body>
-  <section>
-    <h1>Lista de professores</div>
+
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
       <ul>
-        {% if professores %}
-        {% for professor in professores %}
-        <li>
-          <div>
-            <a href="{{ url_for('professores.get_professores', id_professor=professor.id) }}">(ID: {{ professor.id }})</a>
-            <p>Nome: {{ professor.nome }}</p>
-            <p>Idade: {{ professor.idade }}</p>
-            <p>Matéria: {{ professor.materia }}</p>
-            <p>Observações: {{ professor.observacoes }}</p>
-            <form action="{{ url_for('professores.delete_professor', id_professor=professor.id) }}" method="POST">
-              <input type="submit" value="Excluir professor" />
-            </form>
-          </div>
-        </li>
-        {% endfor %}
-        {% else %}
-        <p>Nenhum professor cadastrado.</p>
-        {% endif %}
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="#">Alunos</a></li>
+        <li><a href="#">Turmas</a></li>
       </ul>
+    </nav>
+  </header>
+  <section class="container">
+    <a class="professores-adicionar-professores" href="{{ url_for('professores.adicionar_professores_page')}}">Adiconar professores</a>
+    <h1>Lista de professores</h1>
+    <div class="professor">
+      {% if professores %}
+      {% for professor in professores %}
+      <div>
+        <p>Nome: {{ professor.nome }}</p>
+        <p>Idade: {{ professor.idade }}</p>
+        <p>Matéria: {{ professor.materia }}</p>
+        <p>Observações: {{ professor.observacoes }}</p>
+        <div class="professor-forms">
+          <form action="{{ url_for('professores.delete_professor', id_professor=professor.id) }}" method="POST">
+            <input type="submit" value="Excluir professor" />
+          </form>
+          <form action="{{ url_for('professores.get_professor_id', id_professor=professor.id) }}" method="GET">
+            <input type="submit" value="Editar professor" />
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+    </div>
+    <p>Nenhum professor cadastrado.</p>
+    {% endif %}
+    </ul>
   </section>
 </body>
 

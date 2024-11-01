@@ -5,10 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página inicial</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/index.css') }}">
+
 </head>
 
 <body>
-  <h1>Página inicial</h1>
+  <header class="header">
+    <h1>Escola Flask</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('professores.get_professores')}}">Professores</a></li>
+        <li><a href="#">Alunos</a></li>
+        <li><a href="#">Turmas</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="titulo">
+    <h1>Seja bem a Escola Flask</h1>
+  </section>
 </body>
 
 </html>
