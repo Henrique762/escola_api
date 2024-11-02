@@ -18,9 +18,9 @@ def list_alunos():
         for aluno in alunos:
             descricaoTurma = listar_turma(aluno['turma'])['descricao']
             aluno['descricaoTurma'] = descricaoTurma
-        return render_template('alunos/alunos.html', alunos=alunos)
+        return render_template('alunos/alunos.html', alunos=alunos), 200
     except NenhumalunoDisponivel:
-        return render_template('alunos/alunos.html'), 404
+        return render_template('alunos/alunos.html'), 200
 
 @alunos_blueprint.route(("/alunos/<int:id>"), methods=['GET'])
 def list_aluno(id):
@@ -43,7 +43,7 @@ def add_aluno():
         return jsonify({'Message': 'Erro ao Adicionar o Aluno'})
 
 
-@alunos_blueprint.route(("/alunos/editar<int:id>"), methods=['PUT', 'POST'])
+@alunos_blueprint.route(("/alunos/editar/<int:id>"), methods=['PUT', 'POST'])
 def alter_aluno(id):
     try:
         aluno = listar_aluno(id)
