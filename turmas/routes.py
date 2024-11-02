@@ -65,8 +65,8 @@ def delete_turma(id_turma):
         try:
             alunos = listar_alunos()
             for aluno in alunos:
-                if int(aluno['turma']) == int(id_turma):
-                    deletar_alunos(aluno['id'])
+                  if int(aluno['turma']) == int(id_turma):
+                      deletar_alunos(aluno['id'])
             excluir_turma(id_turma)
             return redirect(url_for('turmas.get_turmas'))
         except:
